@@ -57,7 +57,7 @@ ZCROSS = eval(Zcross);
 %% SOLVE FOR POI WITH CENTERLINE
 
 WPxeq = 'WPx = 23'; %INPUT OF STEERING
-WPyeq = 'WPy = -1';  %INPUT OF STEERING
+WPyeq = 'WPy = -2';  %INPUT OF STEERING
 WPzeq = 'WPz = 3.25';  %INPUT OF STEERING
 CenterXeq = 'CenterX = 0';
 CenterYeq = '((WPy - Ycross)/(WPx - Xcross))*CenterX + WPy - ((WPy - Ycross)/(WPx - Xcross))*WPx = CenterY';
@@ -73,6 +73,7 @@ CENTERZ = eval(CENTERRZ);
 
 WPX = eval(WPx);
 WPY = eval(WPy);
+WPZ = eval(WPz);
 
 %MAKE THIS SCRIPT A FUNCTION TAKING A-ARM POSITIONS, AND STEERING OUTPUTS
 %AS INPUTS AND RETURNS AN X Y AND Z VALUE OF THE ROLL AXIS 

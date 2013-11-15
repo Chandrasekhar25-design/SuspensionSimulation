@@ -12,11 +12,11 @@
 % XCROSS = eval(Xinp);
 
 hold on
-plot(UFX,UFY,'o','MarkerSize',8);
-plot(USX,USY,'o','MarkerSize',8);
-plot(LFX,LFY,'o','MarkerSize',8);
-plot(LSX,LSY,'o','MarkerSize',8);
-plot(XCROSS,YCROSS,'ro','MarkerSize',18);
-plot(CENTERX,CENTERY,'ro','MarkerSize',8);
-plot(WPX,WPY,'ro','MarkerSize',8);
+plot3(UFX,UFY,UFZ,'o','MarkerSize',8);
+plot3(USX,USY,USZ,'o','MarkerSize',8);
+plot3(LFX,LFY,LFZ,'o','MarkerSize',8);
+plot3(LSX,LSY,LSZ,'o','MarkerSize',8);
+plot3(XCROSS,YCROSS,ZCROSS,'ro','MarkerSize',18);
+plot3(CENTERX,CENTERY,CENTERZ,'ro','MarkerSize',8);
+plot3(WPX,WPY,WPZ,'ro','MarkerSize',8);
 axis([-5 28 -5 20])
