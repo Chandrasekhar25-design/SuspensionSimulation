@@ -1,4 +1,4 @@
-
+%test
 
 z = 2; % Z OUTPUT OF SOLVED SIMULATION
 syms UFx USx UFy USy UFz USz LFx LSx LFy LSy LFz LSz Ycross Xcross Zcross WPx WPy WPz CenterX CenterY CenterZ
