@@ -3,20 +3,20 @@
 z =  solution.KnuckleUpper(3); % Z OUTPUT OF SOLVED SIMULATION
 syms UFx USx UFy USy UFz USz LFx LSx LFy LSy LFz LSz Ycross Xcross Zcross WPx WPy WPz CenterX CenterY CenterZ
 %% UPPER A ARM
-UFxeq = ['UFx = ', num2str(solution.FrontUpper(1))];
-USxeq = ['USx = ', num2str(solution.KnuckleUpper(1))]; %OUTPUT OF SOLVE3D
+UFxeq = 'UFx = ', num2str(solution.FrontUpper(1));
+USxeq = 'USx = solution.KnuckleUpper(1)'; %OUTPUT OF SOLVE3D
 
-UFyeq = ['UFy = ' , num2str(solution.FrontUpper(2))];
-USyeq = ['USy = ' , num2str(solution.KnuckleUpper(2))]; %OUTPUT OF SOLVE3D
+UFyeq = 'UFy = solution.FrontUpper(2)';
+USyeq = 'USy = solution.KnuckleUpper(2)'; %OUTPUT OF SOLVE3D
 
 UFzeq = 'UFz = z'; % Z VALUE OF SOLVE3D
 USzeq = 'USz = z';
 %% Lower A ARM
-LFxeq = ['LFx = ' , num2str(solution.FrontLower(1))];
-LSxeq = ['LSx = ' , num2str(solution.KnuckleLower(1))]; %OUTPUT OF SOLVE3D
+LFxeq = 'LFx = solution.FrontLower(1)';
+LSxeq = 'LSx = solution.KnuckleLower(1)'; %OUTPUT OF SOLVE3D
 
-LFyeq = ['LFy = ' , num2str(solution.FrontLower(2))];
-LSyeq = ['LSy = ' , num2str(solution.KnuckleLower(2))]; %OUTPUT OF SOLVE3D
+LFyeq = 'LFy = solution.FrontLower(2)';
+LSyeq = 'LSy = solution.KnuckleLower(2)'; %OUTPUT OF SOLVE3D
 
 LFzeq = 'LFz = z'; % Z VALUE OF SOLVE3D
 LSzeq = 'LSz = z';
@@ -56,9 +56,9 @@ ZCROSS = eval(Zcross);
 
 %% SOLVE FOR POI WITH CENTERLINE
 
-WPxeq = 'WPx = 23'; %INPUT OF STEERING
-WPyeq = 'WPy = -1';  %INPUT OF STEERING
-WPzeq = 'WPz = 3.25';  %INPUT OF STEERING
+WPxeq = 'WPx = 18'; %INPUT OF STEERING
+WPyeq = 'WPy = 0';  %INPUT OF STEERING
+WPzeq = 'WPz = 5';  %INPUT OF STEERING
 CenterXeq = 'CenterX = 0';
 CenterYeq = '((WPy - Ycross)/(WPx - Xcross))*CenterX + WPy - ((WPy - Ycross)/(WPx - Xcross))*WPx = CenterY';
 CenterZeq = '((WPz - Zcross)/(WPx - Xcross))*CenterX + WPz - ((WPz - Zcross)/(WPx - Xcross))*WPx = CenterZ';
