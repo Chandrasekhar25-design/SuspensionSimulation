@@ -1,0 +1,21 @@
+function res = findSteering(sol)
+    P0 = sol.KnuckleUpper;
+    P1 = sol.KnuckleLower;
+    V0 = sol.KnuckleTie;
+    n = [0,1,0];
+    u = P1-P0;
+    w = P0-V0;
+    tI = (-dot(n,w))/(dot(n,u));
+    Vint = P0 + (tI.*u);
+    Vtire = [Vint(1)-V0(1),Vint(2)-V0(2),Vint(3)-V0(3)];
+    ntire = norm(Vtire);
+    Vntire = (Vtire)./(norm(Vtire));
+    Vz = [0,0,1];
+    dprod = dot(Vntire,Vz);
+    line([sol.FrontUpper(1), sol.KnuckleUpper(1), sol.RearUpper(1)], [sol.FrontUpper(3), sol.KnuckleUpper(3), sol.RearUpper(3)], [sol.FrontUpper(2), sol.KnuckleUpper(2), sol.RearUpper(2)])
+    line([sol.FrontLower(1), sol.KnuckleLower(1), sol.RearLower(1)], [sol.FrontLower(3), sol.KnuckleLower(3), sol.RearLower(3)], [sol.FrontLower(2), sol.KnuckleLower(2), sol.RearLower(2)])
+    line([sol.KnuckleUpper(1), sol.KnuckleLower(1), sol.KnuckleTie(1), sol.KnuckleUpper(1)], [sol.KnuckleUpper(3), sol.KnuckleLower(3), sol.KnuckleTie(3), sol.KnuckleUpper(3)], [sol.KnuckleUpper(2), sol.KnuckleLower(2), sol.KnuckleTie(2), sol.KnuckleUpper(2)])
+    line([sol.KnuckleTie(1), sol.TieRod(1)], [sol.KnuckleTie(3), sol.TieRod(3)], [sol.KnuckleTie(2), sol.TieRod(2)])
+    line([sol.KnuckleTie(1),sol.KnuckleTie(1)+
+    res = acosd(dprod);
+end

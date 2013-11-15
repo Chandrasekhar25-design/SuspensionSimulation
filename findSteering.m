@@ -19,5 +19,5 @@ function res = findSteering(sol)
     line([sol.KnuckleTie(1),sol.KnuckleTie(1)],[sol.KnuckleTie(3),sol.KnuckleTie(3)-3.15],[sol.KnuckleTie(2),sol.KnuckleTie(2)]);
     line([Vint(1),sol.KnuckleTie(1)],[Vint(3),sol.KnuckleTie(3)],[Vint(2),sol.KnuckleTie(2)]);
     axis([18,21,2,7]);
-    res = acosd(dprod);
+    res = 180-acosd(dprod);
 end
