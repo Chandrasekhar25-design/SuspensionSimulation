@@ -1,7 +1,7 @@
-function res = findSteering()%sol)
-    P0 = [1.0233 1.4085 0.5000]%sol.KnuckleUpper;
-    P1 = [1.0836 0.2000 0.5000]%sol.KnuckleLower;
-    V0 = [1.2411 0.8136 -0.5309]%sol.KnuckleTie;
+function res = findSteering(sol)
+    P0 = sol.KnuckleUpper;
+    P1 = sol.KnuckleLower;
+    V0 = sol.KnuckleTie;
     n = [0,1,0];
     u = P1-P0;
     w = P0-V0;
