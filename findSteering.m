@@ -12,5 +12,9 @@ function res = findSteering(sol)
     Vntire = (Vtire)./(norm(Vtire));
     Vz = [0,0,1];
     dprod = dot(Vntire,Vz);
+    line([sol.FrontUpper(1), sol.KnuckleUpper(1), sol.RearUpper(1)], [sol.FrontUpper(3), sol.KnuckleUpper(3), sol.RearUpper(3)], [sol.FrontUpper(2), sol.KnuckleUpper(2), sol.RearUpper(2)])
+    line([sol.FrontLower(1), sol.KnuckleLower(1), sol.RearLower(1)], [sol.FrontLower(3), sol.KnuckleLower(3), sol.RearLower(3)], [sol.FrontLower(2), sol.KnuckleLower(2), sol.RearLower(2)])
+    line([sol.KnuckleUpper(1), sol.KnuckleLower(1), sol.KnuckleTie(1), sol.KnuckleUpper(1)], [sol.KnuckleUpper(3), sol.KnuckleLower(3), sol.KnuckleTie(3), sol.KnuckleUpper(3)], [sol.KnuckleUpper(2), sol.KnuckleLower(3), sol.KnuckleTie(2), sol.KnuckleUpper(2)])
+    line([sol.KnuckleTie(1), sol.TieRod(1)], [sol.KnuckleTie(3), sol.TieRod(3)], [sol.KnuckleTie(2), sol.TieRod(2)])
     res = acosd(dprod);
 end
