@@ -73,9 +73,12 @@ CENTERX = eval(CenterX);
 CENTERRZ = eval(CenterZ);
 CENTERZ = eval(CENTERRZ);
 
-WPX = eval(WPx);
-WPY = eval(WPy);
-WPZ = eval(WPz);
+WPXX = eval(WPx);
+WPYY = eval(WPy);
+WPZZ = eval(WPz);
+WPX = eval(WPXX);
+WPY = eval(WPYY);
+WPZ = eval(WPZZ);
 
 %MAKE THIS SCRIPT A FUNCTION TAKING A-ARM POSITIONS, AND STEERING OUTPUTS
 %AS INPUTS AND RETURNS AN X Y AND Z VALUE OF THE ROLL AXIS 
