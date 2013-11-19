@@ -1,5 +1,7 @@
 function outputs = suspensionSimulation(steeringRange, verticalRange, varargin)
-    
+%Expects varargin to be a column vector where each element contains an
+%upper and lower A-arm length
+
     %% Initialize variables and parse input arguments
     %Initialize output structure
     finish = struct();
@@ -31,8 +33,8 @@ function outputs = suspensionSimulation(steeringRange, verticalRange, varargin)
                 
                 %If loops to determine whether or not to include additional
                 %inputs
-                if length(varargin)>1
-                    solution = solve3D(steeringRange(p),verticalRange(i),geometries(n));
+                if length(varargin) > 1
+                    solution = solve3D(steeringRange(p),verticalRange(i),geometries(n,:));
                 else
                     solution = solve3D(steeringRange(p),verticalRange(i));
                 end
