@@ -1,5 +1,5 @@
 %test
-
+solution = ans
 z =  solution.KnuckleUpper(3); % Z OUTPUT OF SOLVED SIMULATION
 syms UFx USx UFy USy UFz USz LFx LSx LFy LSy LFz LSz Ycross Xcross Zcross WPx WPy WPz CenterX CenterY CenterZ
 %% UPPER A ARM
@@ -56,9 +56,11 @@ ZCROSS = eval(Zcross);
 
 %% SOLVE FOR POI WITH CENTERLINE
 
-WPxeq = 'WPx = 23'; %INPUT OF STEERING
-WPyeq = 'WPy = -2';  %INPUT OF STEERING
-WPzeq = 'WPz = 3.25';  %INPUT OF STEERING
+ WheelDisplacement = 4;
+    WheelRadius = 10;
+WPxeq = 'WPx = (USx + LSx)/2 + WheelDisplacement'; %INPUT OF STEERING
+WPyeq = 'WPy = (USy + LSy)/2 -WheelRadius';  %INPUT OF STEERING
+WPzeq = 'WPz = (USz + LSz)/2 ';  %INPUT OF STEERING
 CenterXeq = 'CenterX = 0';
 CenterYeq = '((WPy - Ycross)/(WPx - Xcross))*CenterX + WPy - ((WPy - Ycross)/(WPx - Xcross))*WPx = CenterY';
 CenterZeq = '((WPz - Zcross)/(WPx - Xcross))*CenterX + WPz - ((WPz - Zcross)/(WPx - Xcross))*WPx = CenterZ';

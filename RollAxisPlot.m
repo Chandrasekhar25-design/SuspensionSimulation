@@ -19,4 +19,4 @@ plot3(LSX,LSY,LSZ,'o','MarkerSize',8);
 plot3(XCROSS,YCROSS,ZCROSS,'ro','MarkerSize',18);
 plot3(CENTERX,CENTERY,CENTERZ,'ro','MarkerSize',8);
 plot3(WPX,WPY,WPZ,'ro','MarkerSize',8);
-axis([-5 28 -5 20])
+axis([-10 28 -10 20])
