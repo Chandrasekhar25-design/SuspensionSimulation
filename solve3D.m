@@ -128,6 +128,12 @@ filterResult2
 % line([xla1, xlk, xla2], [zla1, zlk, zla2], [yla1, ylk, yla2])
 % line([xuk, xlk], [zuk, zlk], [yuk, ylk])
 %Solve the steering rod
+
+len6 = eval(len6);
+len7 = eval(len7);
+len8 = eval(len8);
+
+
 [xtk,ytk,ztk] = solve(len6, len7, len8, xtk, ytk,ztk);
 % xtk = eval(xtk);
 % ytk = eval(ytk);
