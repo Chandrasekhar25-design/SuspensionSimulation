@@ -7,12 +7,12 @@ holdxtr = xtra;
 holdylkval = ylkval;
 xua1 = sym('xua1'); yua1 = sym('yua1'); zua1 = sym('zua1');
 xua2 = sym('xua2'); yua2 = sym('yua2'); zua2 = sym('zua2');
-xuk = sym('xuk','real'); yuk = sym('yuk','real'); zuk = sym('zuk','real');
+xuk = sym('xuk'); yuk = sym('yuk'); zuk = sym('zuk');
 xla1 = sym('xla1'); yla1 = sym('yla1'); zla1 = sym('zla1');
 xla2 = sym('xla2'); yla2 = sym('yla2'); zla2 = sym('zla2');
-xlk = sym('xlk','real'); ylk = sym('ylk','real'); zlk = sym('zlk','real'); 
+xlk = sym('xlk'); ylk = sym('ylk'); zlk = sym('zlk'); 
 xtr = sym('xtr'); ytr = sym('ytr'); ztr = sym('ztr');
-xtk = sym('xtk','real'); ytk = sym('ytk','real'); ztk = sym('ztk','real');
+xtk = sym('xtk'); ytk = sym('ytk'); ztk = sym('ztk');
 
 %% Define Fixed Points
 %Upper A-arm mounting points
@@ -34,8 +34,35 @@ eq1 = ['ylk = ', num2str(ylkval)];
 xtr = holdxtr;
 
 %% Define Length Constraints
+%Define default A-arm lengths
+lUpper = 13.73;
+lLower = 17.74;
+
+%Accept User Values
+if length(varargin) == 1
+    lUpper = varargin{1}(1);
+    lLower = varargin{1}(2);
+end
+
+%Solve for Member Lenghts Based on A-arm lengths
+diffUpper = zua2-zua1;  %Z distance between front and rear mount points (upper)
+diffLower = zla2-zla1;  %Z distance between front and rear mount points (lower)
+
+zUpper = 3.475; %Rear displacement of knuckle attachment (upper)
+zLower = 3.475; %Rear displacement of knuckle attachment (lower)
+
+frontUpperLength = sqrt(zUpper^2 + lUpper^2);   
+rearUpperLength = sqrt((diffUpper-zUpper)^2 + lUpper^2);
+
+frontLowerLength = sqrt(zLower^2 + lLower^2);
+rearLowerLength = sqrt((diffLower-zLower)^2 + lLower^2);
+
 %Define Length Values
-l1 = 14; l2 = 15; l3 = 17; l4 = 18; l5 = 7.5; l6 = 4.5; l7 = 5.5; l8 = 14.5;
+l1 = frontUpperLength;
+l2 = rearUpperLength; 
+l3 = frontLowerLength; 
+l4 = rearLowerLength; 
+l5 = 7.5; l6 = 4.5; l7 = 5.5; l8 = 14.5;
 
 %Upper arm distance from mounts to knuckle
 len1 = (xua1-xuk)^2 + (yua1-yuk)^2 + (zua1-zuk)^2 - l1^2;  %Upper front distance
@@ -54,42 +81,23 @@ len7 = (xlk-xtk)^2 + (ylk-ytk)^2 + (zlk-ztk)^2 - l7^2; %Lower to tie rod mount
 len8 = (xtr-xtk)^2 + (ytr-ytk)^2 + (ztr-ztk)^2 - l8^2; %Tie rod end to knuckle
 
 %% Accept User Values
-if length(varargin) >= 1
-    for k = 1:length(varargin)
-        try
-            eval(varargin{k});
-        catch except
-            disp(except)
-            disp('User Input Generated Error')
-        end
-    end
-end
+% if length(varargin) >= 1
+%     for k = 1:length(varargin)
+%         try
+%             eval(varargin{k});
+%         catch except
+%             disp(except)
+%             disp('User Input Generated Error')
+%         end
+%     end
+% end
 %% Solve the system
 %Solve the lower A-arm
-% len3 = eval(len3)
-% len4 = eval(len4)
-% len5 = eval(len5)
+
 [xlk, ylk, zlk] = solve(len3, len4, eq1, xlk, ylk, zlk);
 xlk = eval(xlk);
 ylk = eval(ylk);
 zlk = eval(zlk);
-
-% a = l3;
-% b = l4;
-% c = zla2-zla1;
-% 
-% A = acosd((b^2 + c^2 - a^2)/2/b/c);
-% long = b*sind(A);
-% short = b*cosd(A);
-% 
-% phi = asind(ylkval/long);
-% x = cosd(phi)*long;
-% y = ylkval;
-% z = zla2 - short;
-% 
-% xlk = x;
-% ylk = y;
-% zlk = z;
 
 %FILTER RESULT
 filterResult1
@@ -97,14 +105,11 @@ filterResult1
         rem = [];
         for i = 1:length(xlk)
             if xlk(i) ~= abs(xlk)
-               
                 rem = [rem,i];
             end
         end
         xlk(rem) = []; ylk(rem) = []; zlk(rem) = [];
-        
     end
-
 
 %Solve the upper A-arm
 [xuk, yuk, zuk] = solve(len1, len2, len5, xuk, yuk, zuk);
@@ -124,50 +129,16 @@ filterResult2
         end
         xuk(rem) = []; yuk(rem) = []; zuk(rem) = [];
     end
-% line([xua1, xuk, xua2], [zua1, zuk, zua2], [yua1, yuk, yua2])
-% line([xla1, xlk, xla2], [zla1, zlk, zla2], [yla1, ylk, yla2])
-% line([xuk, xlk], [zuk, zlk], [yuk, ylk])
-%Solve the steering rod
 
 len6 = eval(len6);
 len7 = eval(len7);
 len8 = eval(len8);
 
-
+%Solve the steering rod
 [xtk,ytk,ztk] = solve(len6, len7, len8, xtk, ytk,ztk);
-% xtk = eval(xtk);
-% ytk = eval(ytk);
-% solve(
 xtk = eval(xtk);
 ytk = eval(ytk);
 ztk = eval(ztk);
-toc
-% hold on
-% 
-%     function res = func8(apple)
-%         ztk = apple;
-%         rese = eval(len8(1));
-% %         plot(real(rese),imag(rese),'ro')
-%         plot(ytk, real(rese),'o')
-%       
-%         res = real(rese);
-%     end
-% % 
-% ztk = fzero(@func8, 0)
-
-
-% ztk = eval(ztk)
-% filterResult3
-
-
-% eval(xtk)
-% [xtk, ytk, ztk] = solve(len6, len7, len8, xtk, ytk, ztk);
-% xtk
-% ytk
-% ztk
-% toc
-
-
 
 %FILTER RESULT
 filterResult3
@@ -182,31 +153,12 @@ filterResult3
         xtk(rem) = []; ytk(rem) = []; ztk(rem) = [];
     end
 
-% xtk = eval(xtk)
-% ytk = eval(ytk)
-
-% filterResult4
-%     function filterResult4
-%         valid1 = (xtr-xtk(1))^2 + (ytr-ytk(1))^2 + (ztr-ztk)^2 - l8^2;
-%         valid2 = (xtr-xtk(2))^2 + (ytr-ytk(2))^2 + (ztr-ztk)^2 - l8^2; 
-%         if valid1>valid2 && valid2 < .1
-%             xtk = xtk(2);
-%             ytk = ytk(2);
-%         elseif valid1<valid2 && valid1 < .1
-%             xtk = xtk(1);
-%             ytk = ytk(1);
-%         else
-%             disp('Results Filter Failed After Steering Rod')
-%         end
-%     end
-
 %% Draw Some Stuff
-% figure(2)
 line([xua1, xuk, xua2], [zua1, zuk, zua2], [yua1, yuk, yua2])
 line([xla1, xlk, xla2], [zla1, zlk, zla2], [yla1, ylk, yla2])
 line([xuk, xlk, xtk, xuk], [zuk, zlk, ztk, zuk], [yuk, ylk, ytk, yuk])
 line([xtk, xtr], [ztk, ztr], [ytk, ytr])
-valid = (xtr-xtk)^2 + (ytr-ytk)^2 + (ztr-ztk)^2 - l8^2
+valid = (xtr-xtk)^2 + (ytr-ytk)^2 + (ztr-ztk)^2 - l8^2;
 
 
 a = get(gca, 'XLim');
